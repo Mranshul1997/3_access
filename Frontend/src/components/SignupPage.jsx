@@ -140,7 +140,7 @@ function SignupPage() {
             {/* Already have an account */}
             <p className="text-center text-sm mt-4">
               Already have an account?{" "}
-              <a href="/login" className="text-blue-600 underline">
+              <a href="/" className="text-blue-600 underline">
                 Login
               </a>
             </p>

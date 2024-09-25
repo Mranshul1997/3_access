@@ -105,7 +105,7 @@ function LoginPage() {
               onClick={handleGoToTenantLogin}
               className="text-blue-600 underline cursor-pointer"
             >
-              Managing Tenant Account?
+              Login with Tenant Account?
             </span>
           </div>
         </div>
