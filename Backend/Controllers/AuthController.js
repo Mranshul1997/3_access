@@ -1,5 +1,5 @@
 const UserModal = require("../Models/User");
-const bcrypt = require("bcryptjs");
+// const bcrypt = require("bcryptjs");
 
 // Signup functionality
 
@@ -14,7 +14,7 @@ const signup = async (req, res) => {
       });
     }
     const userModal = new UserModal({ name, email, password });
-    userModal.password = await bcrypt.hash(password, 10);
+    // userModal.password = await bcrypt.hash(password, 10);
     await userModal.save();
     res.status(200).json({ message: "Signup successful", success: true });
   } catch (err) {

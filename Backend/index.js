@@ -1,23 +1,54 @@
 const express = require("express");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const UserModel = require("./Models/User");
+const router = express.Router();
 
-const app = express();
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const AuthRouter = require("./Routes/AuthRouter")
+// Signup route
+router.post("/signup", async (req, res) => {
+  const { name, email, password } = req.body;
 
+  try {
+    // Check if user already exists
+    let user = await UserModel.findOne({ email });
+    if (user) {
+      return res.status(400).json({ msg: "User already exists" });
+    }
 
-
-require("dotenv").config();
-require("./Models/db");
-const PORT = process.env.PORT || 8080;
-
-app.get("/", (req, res) => {
-  res.send("hello");
+    user = new UserModel({ name, email, password });
+    await user.save();
+    res.status(201).json({ msg: "User registered successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
 });
-app.use(bodyParser.json());
-app.use(cors());
-app.use('/auth',AuthRouter)
 
-app.listen(PORT, () => {
-  console.log(`Server is running at Port http://localhost:${PORT}`);
+// Login route
+router.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Check if user exists
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ msg: "Invalid email or password" });
+    }
+
+    // Check password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ msg: "Invalid email or password" });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    res.json({ token });
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
 });
+
+module.exports = router;
