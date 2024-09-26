@@ -3,7 +3,7 @@ import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignupPage";
 import Dashboard from "./components/Dashboard";
 import UserForm from "./components/UserForm";
-import TenentLoginPage from "./components/TenentLoginPage";
+import TenantSignupPage from './components/TenantSignupPage'
 import { useState } from "react";
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/tenantlogin" element={<TenentLoginPage />} />
+        <Route path="/tenantSignup" element={<TenantSignupPage />} />
         <Route path="/login" element={<SignupPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
 

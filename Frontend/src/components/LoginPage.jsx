@@ -13,8 +13,8 @@ function LoginPage() {
     navigate("/login"); // Navigate to the Signup page
   };
 
-  const handleGoToTenantLogin = () => {
-    navigate("/tenantlogin"); // Navigate to the Tenant Login page
+  const handleGoToTenantSignup = () => {
+    navigate("/tenantSignup"); // Navigate to the Tenant Login page
   };
 
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -102,10 +102,10 @@ function LoginPage() {
               Get New Company Account?
             </span>
             <span
-              onClick={handleGoToTenantLogin}
+              onClick={handleGoToTenantSignup}
               className="text-blue-600 underline cursor-pointer"
             >
-              Login with Tenant Account?
+              Create new Tenant Account?
             </span>
           </div>
         </div>
